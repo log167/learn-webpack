@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { DefinePlugin } = require('webpack')
+const CopyWebpackPlugin =  require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/js/index.js',
@@ -69,7 +70,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        use: ['babel-loader']
+        use: ['babel-loader'],
+        exclude: /node_modules/
       }
     ]
   },
@@ -86,7 +88,17 @@ module.exports = {
     new CleanWebpackPlugin(),
     new DefinePlugin({
       // BASE_URL = '"./"'
-    })
+    }),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       from: 'public',
+    //       globOptions: {
+    //         ignore: ['**/index.html']
+    //       }
+    //     }
+    //   ]
+    // })
   ],
   mode: 'development',
   devtool: false,
